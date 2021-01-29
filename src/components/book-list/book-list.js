@@ -3,14 +3,15 @@ import './book-list.css';
 import BookListItem from "../book-list-item";
 import {connect} from "react-redux";
 import withBookstoreService from "../hoc";
-import {booksLoaded} from "../../actions";
+import {booksLoaded, booksRequest} from "../../actions";
 import compose from "../../utils";
 import Spinner from "../spinner";
 
 class BookList extends Component {
 
     componentDidMount() {
-        const {bookstoreService, booksLoaded} = this.props;
+        const {bookstoreService, booksLoaded, booksRequest} = this.props;
+        booksRequest();
         bookstoreService.getBooks()
             .then((data) => booksLoaded(data))
     }
@@ -39,7 +40,8 @@ const mapStateToProps = ({books, loading}) => {
 };
 
 const mapDispatchToProps = {
-    booksLoaded
+    booksLoaded,
+    booksRequest
 }
 
 export default compose(
