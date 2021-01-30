@@ -6,7 +6,7 @@ import {allBooksRemovedFromCart, bookAddedToCart, bookRemovedFromCart} from "../
 const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => {
 
     const renderRow = (item, idx) => {
-        const { id, title, count, total } = item;
+        const {id, title, count, total} = item;
         return (
             <tr key={id}>
                 <td>{idx + 1}</td>
@@ -15,20 +15,20 @@ const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => 
                 <td>${total}</td>
                 <td>
                     <button onClick={() => onIncrease(id)}
-                        className={'btn btn-outline-success btn-small'}>
+                            className={'btn btn-outline-success btn-small'}>
                         <i className={'fa fa-plus-circle'}/>
                     </button>
                     <button onClick={() => onDecrease(id)}
-                        className={'btn btn-outline-warning btn-small'}>
+                            className={'btn btn-outline-warning btn-small'}>
                         <i className={'fa fa-minus-circle'}/>
                     </button>
                     <button onClick={() => onDelete(id)}
-                        className={'btn btn-outline-danger btn-small'}>
+                            className={'btn btn-outline-danger btn-small'}>
                         <i className={'fa fa-trash-o'}/>
                     </button>
                 </td>
             </tr>
-            )
+        )
     }
 
     return (
@@ -56,7 +56,7 @@ const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => 
     );
 };
 
-const mapStateToProps = ({cartItems, orderTotal}) => {
+const mapStateToProps = ({shoppingCart: {cartItems, orderTotal}}) => {
     return {
         items: cartItems,
         total: orderTotal
@@ -65,10 +65,9 @@ const mapStateToProps = ({cartItems, orderTotal}) => {
 }
 
 const mapDispatchToProps = {
-        onIncrease: (id) => bookAddedToCart(id),
-        onDecrease: (id) => bookRemovedFromCart(id),
-        onDelete: (id) => allBooksRemovedFromCart(id)
+    onIncrease: (id) => bookAddedToCart(id),
+    onDecrease: (id) => bookRemovedFromCart(id),
+    onDelete: (id) => allBooksRemovedFromCart(id)
 }
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(ShoppingCartTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCartTable);
